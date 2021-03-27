@@ -1,0 +1,14 @@
+[Unit]
+Description=Cuckoo Docker Services
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/docker-compose -f /start-cuckoo-services.yml up -d
+ExecStop=/usr/local/bin/docker-compose -f /start-cuckoo-services.yml down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

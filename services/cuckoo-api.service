@@ -1,0 +1,14 @@
+[Unit]
+Description=Cuckoo Api Service
+Requires=cuckoo.service
+After=cuckoo.service
+
+[Service]
+User=cuckoo
+RemainAfterExit=yes
+ExecStart=/home/cuckoo/cuckoo/bin/cuckoo api -H 0.0.0.0 -p 8080
+TimeoutStartSec=0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

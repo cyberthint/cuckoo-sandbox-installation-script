@@ -1,0 +1,16 @@
+[Unit]
+Description=Cuckoo Service
+Requires=cuckoo-docker.service
+After=cuckoo-docker.service
+
+[Service]
+User=cuckoo
+RemainAfterExit=yes
+ExecStartPre=/bin/sleep 10
+ExecStart=/home/cuckoo/cuckoo/bin/cuckoo
+TimeoutStartSec=0
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target
