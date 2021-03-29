@@ -16,12 +16,22 @@ Tested on;
 
 ## Installation
 
+### Before started...
+
+- Make sure your host virtualization is enabled.
+- Download this repo:
+
+```
+$ wget -O cuckoo-setup.zip https://github.com/cyberthint/cuckoo-sandbox-installation-script/archive/refs/heads/master.zip
+$ unzip cuckoo-setup.zip
+$ cd cuckoo-sandbox-installation-script-master/
+```
+
 ### Step 1 : Run following commands as `root` user:
 
 Make `run-as-root.sh` executable and run:
 
 ```
-$ cd path/to/cuckoo-setup
 $ chmod a+x run-as-root.sh
 $ ./run-as-root.sh
 ```
@@ -96,3 +106,57 @@ This directories binded docker containers, so even if you restart docker contain
 There is 1 configuration directory:
 
 1. `/home/cuckoo/.cuckoo/conf` : This directory contains cuckoo configurations. [More information...](https://cuckoo.sh/docs/index.html)
+
+## Troubleshooting
+
+### Getting hash error when creating virtualenv directory:
+
+**THE ERROR:**  
+
+While running `run-as-cuckoo.sh` file, getting following error:
+
+```
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+```
+
+**SOLUTION 1:**  
+
+If you are using Virtualbox for hosting main machine, Virtualbox version may be old. Check your Virtualbox machine version, and if the version is older than `r140270`, please upgrade your Virtualbox.
+
+**SOLUTION 2:**  
+
+It may be network configuration problem:
+
+- Make sure your host machine connecting to internet directly. If you are using `NAT` network, change it to `Bridged Network`.
+- After changing network settings, clear pip cache with following command:
+
+```
+$ rm -rf /home/cuckoo/.cache/pip
+```
+
+- Start `run-as-cuckoo.sh` script file again.
+
+**SOLUTION 3:**  
+
+If you are running host server over Windows 10, it may be because of auto-tuning level of you Windows network.
+
+Check your network auto-tuning level by following command:
+
+```
+λ netsh int tcp show global
+
+Querying active state...
+
+TCP Global Parameters
+----------------------------------------------
+...
+Receive Window Auto-Tuning Level    : normal
+...
+```
+
+If you are getting result like that, turn auto-tuning level with following command:
+
+```
+λ netsh int tcp set global autotuninglevel=disabled
+Ok.
+```

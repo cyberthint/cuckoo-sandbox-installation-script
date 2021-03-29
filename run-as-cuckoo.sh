@@ -5,7 +5,7 @@ virtualenv ~/cuckoo
 . ~/cuckoo/bin/activate
 
 printf "\n>>> Installing python packages\n\n"
-pip install setuptools \
+pip install --no-cache-dir setuptools \
     cryptography==2.9.2 \
     pyrsistent==0.16.1 \
     m2crypto==0.37.1 \
@@ -13,9 +13,9 @@ pip install setuptools \
     bottle
 
 printf "\n>>> Installing cuckoo & vmcloak\n\n"
-pip install cuckoo vmcloak
+pip install --no-cache-dir cuckoo vmcloak
 pip uninstall -y werkzeug
-pip install werkzeug==0.16.1
+pip install --no-cache-dir werkzeug==0.16.1
 
 printf "\n>>> Creating Windows base image...\n\n"
 vmcloak init --verbose --win7x64 win7x64base --cpus 2 --ramsize 2048
