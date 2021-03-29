@@ -1,4 +1,4 @@
-# CUCKOO BASIC INSTALLATION with VIRTUALBOX
+# Cuckoo Sandbox Full Automated Installation Script
 
 This repository contains scripts to install cuckoo with required services/packages simply.  
 
@@ -30,7 +30,7 @@ This script file will make this changes:
 
 - Update & upgrade apt packages
 - Install neccessary packages for cuckoo
-- Downloand docker & docker-compose
+- Download docker & docker-compose
 - Make neccessary settings
 - Create `cuckoo` user and add it to groups
 - Install `win7ultimate` image for using Virtualbox
