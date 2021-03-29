@@ -12,13 +12,17 @@ Basic features are:
 Tested on;
 
 - Debian 10.8
-- Ubuntu 20.04
+- Debian 9.13 (Recommended)
+- Ubuntu 20.4
+- Ubuntu 18.4
 
 ## Installation
 
 ### Before started...
 
 - Make sure your host virtualization is enabled.
+- If you are using Virtualbox, make sure `VT-x/AMD-V` is enabled.
+- Make sure host machine has min 2 CPU / 2gb RAM.
 - Download this repo:
 
 ```
@@ -80,6 +84,15 @@ $ source /home/cuckoo/cuckoo/bin/activate
 $ cuckoo
 ```
 
+## Endpoints / Ports
+
+There are 2 endpoints for `cuckoo-web` and `cuckoo-api`:
+
+- `port:8000` : Cuckoo web interface port
+- `port:8080` : Cuckoo api interface port
+
+Check `Services` section for more information about **changing interface port** or **stopping services**.
+
 ## Services
 
 There are 4 services which run at system startup:
@@ -89,7 +102,22 @@ There are 4 services which run at system startup:
 3. `cuckoo-web.service` : Web service which responsible for starting cuckoo web service on port 8000.
 4. `cuckoo-api.service` : Api service which responsible for starting cuckoo api service on port 8080.
 
-All service files are in `/etc/systemd/system/` folder.
+- All service files are in `/etc/systemd/system/` folder.
+- For changing `cuckoo-web` or `cuckoo-api` ports, edit service file and restart service:
+
+```
+$ vim /etc/systemd/system/cuckoo-web.service
+>>> Edit file
+$ systemctl daemon-reload
+$ systemctl restart cuckoo-web
+```
+
+- You can stop and disable unwanted services, and services will not start automatically at startup:
+
+```
+$ systemctl stop cuckoo-api
+$ systemctl disable cuckoo-api
+```
 
 ## Data Directories
 
